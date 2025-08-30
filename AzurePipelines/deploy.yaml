@@ -24,6 +24,7 @@ stages:
         provider: 'azurerm'
         command: 'init'
         workingDirectory: '$(terraformWorkingDirectory)'
+        backendServiceArm: 'Azure 1'
 
     - task: TerraformTaskV4@4
       displayName: 'Terraform Validate'
