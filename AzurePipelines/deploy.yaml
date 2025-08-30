@@ -1,0 +1,56 @@
+trigger:
+  branches:
+    include:
+      - main
+
+pool:
+  vmImage: 'ubuntu-latest'
+
+variables:
+  terraformWorkingDirectory: './Terraform'
+
+stages:
+- stage: 
+  jobs:
+  - job: 
+    steps:
+    - checkout: self
+
+    - task: TerraformInstaller@1
+      displayName: 'Install Terraform'
+
+    - script: terraform init
+      displayName: 'Terraform Init'
+      workingDirectory: $(terraformWorkingDirectory)
+
+    - script: terraform validate
+      displayName: 'Terraform Validate'
+      workingDirectory: $(terraformWorkingDirectory)
+
+    - script: terraform plan -out=tfplan
+      displayName: 'Terraform Plan'
+      workingDirectory: $(terraformWorkingDirectory)
+
+    - script: terraform apply -auto-approve tfplan
+      displayName: 'Terraform Apply'
+      workingDirectory: $(terraformWorkingDirectory)
+
+    - script: |
+        terraform output -raw webapp_name > webapp_name.txt
+      displayName: 'Get Azure Web App Name'
+      workingDirectory: $(terraformWorkingDirectory)
+
+    - task: AzureCLI@2
+      displayName: 'Azure Login'
+      inputs:
+        azureSubscription: 'Azure 1'
+        scriptType: bash
+        scriptLocation: inlineScript
+        inlineScript: echo "Logged in to Azure"
+
+    - task: AzureWebAppContainer@1
+      displayName: 'Deploy container to Azure Web App'
+      inputs:
+        azureSubscription: 'Azure 1'
+        appName: $(cat $(terraformWorkingDirectory)/webapp_name.txt)
+        containers: 'ghcr.io/advplyr/audiobookshelf:latest'
