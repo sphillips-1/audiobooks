@@ -15,25 +15,40 @@ stages:
   - job: 
     steps:
     - checkout: self
-
     - task: TerraformInstaller@1
       displayName: 'Install Terraform'
 
-    - script: terraform init
+    - task: TerraformTaskV4@4
       displayName: 'Terraform Init'
-      workingDirectory: $(terraformWorkingDirectory)
+      inputs:
+        provider: 'azurerm'
+        command: 'init'
+        workingDirectory: '$(terraformWorkingDirectory)'
 
-    - script: terraform validate
+    - task: TerraformTaskV4@4
       displayName: 'Terraform Validate'
-      workingDirectory: $(terraformWorkingDirectory)
+      inputs:
+        provider: 'azurerm'
+        command: 'validate'
+        workingDirectory: '$(terraformWorkingDirectory)'
 
-    - script: terraform plan -out=tfplan
+    - task: TerraformTaskV4@4
       displayName: 'Terraform Plan'
-      workingDirectory: $(terraformWorkingDirectory)
+      inputs:
+        provider: 'azurerm'
+        command: 'plan'
+        workingDirectory: '$(terraformWorkingDirectory)'
+        environmentServiceNameAzureRM: 'Azure 1'
+        commandOptions: '-out=tfplan'
 
-    - script: terraform apply -auto-approve tfplan
+    - task: TerraformTaskV4@4
       displayName: 'Terraform Apply'
-      workingDirectory: $(terraformWorkingDirectory)
+      inputs:
+        provider: 'azurerm'
+        command: 'apply'
+        workingDirectory: '$(terraformWorkingDirectory)'
+        environmentServiceNameAzureRM: 'Azure 1'
+        commandOptions: '-auto-approve tfplan'
 
     - script: |
         terraform output -raw webapp_name > webapp_name.txt
