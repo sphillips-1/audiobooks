@@ -25,6 +25,7 @@ stages:
         command: 'init'
         workingDirectory: '$(terraformWorkingDirectory)'
         backendServiceArm: 'Azure 1'
+        backendAzureRmStorageAccountName: 'satfstateeast'
 
     - task: TerraformTaskV4@4
       displayName: 'Terraform Validate'
