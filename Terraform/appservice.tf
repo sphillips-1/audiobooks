@@ -24,9 +24,11 @@ resource "azurerm_app_service" "app" {
         acr_user_managed_identity_client_id  = null
     }
 
-    app_settings = {
-        "DOCKER_REGISTRY_SERVER_URL"      = "https://${azurerm_container_registry.acr.login_server}"
-        "DOCKER_REGISTRY_SERVER_USERNAME" = "@Microsoft.KeyVault(SecretUri=${azurerm_key_vault_secret.acr_username.id})"
-        "DOCKER_REGISTRY_SERVER_PASSWORD" = "@Microsoft.KeyVault(SecretUri=${azurerm_key_vault_secret.acr_password.id})"
-    }
+        app_settings = {
+                "DOCKER_REGISTRY_SERVER_URL"      = "https://${azurerm_container_registry.acr.login_server}"
+                "DOCKER_REGISTRY_SERVER_USERNAME" = "@Microsoft.KeyVault(SecretUri=${azurerm_key_vault_secret.acr_username.id})"
+                "DOCKER_REGISTRY_SERVER_PASSWORD" = "@Microsoft.KeyVault(SecretUri=${azurerm_key_vault_secret.acr_password.id})"
+        }
+
 }
+

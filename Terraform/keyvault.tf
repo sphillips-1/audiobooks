@@ -5,16 +5,19 @@ resource "azurerm_key_vault" "kv" {
     tenant_id                   = data.azurerm_client_config.current.tenant_id
     sku_name                    = "standard"
     purge_protection_enabled    = false
-    soft_delete_enabled         = true
+    
+    # access_policy for app service moved to azurerm_key_vault_access_policy resource
+}
 
-    access_policy {
-        tenant_id = data.azurerm_client_config.current.tenant_id
-        object_id = azurerm_app_service.app.identity.principal_id
+resource "azurerm_key_vault_access_policy" "app_service" {
+    key_vault_id = azurerm_key_vault.kv.id
+    tenant_id    = data.azurerm_client_config.current.tenant_id
+    object_id    = azurerm_app_service.app.identity.principal_id
 
-        secret_permissions = [
-            "get", "list"
-        ]
-    }
+    secret_permissions = [
+        "get",
+        "list"
+    ]
 }
 
 resource "azurerm_key_vault_secret" "acr_username" {
