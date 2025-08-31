@@ -27,6 +27,7 @@ stages:
         backendServiceArm: 'Azure 1'
         backendAzureRmStorageAccountName: 'satfstateeast'
         backendAzureRmContainerName: 'tfstate-audiobooks'
+        backendAzureRmKey: 'audiobooks.tfstate'
 
     - task: TerraformTaskV4@4
       displayName: 'Terraform Validate'
