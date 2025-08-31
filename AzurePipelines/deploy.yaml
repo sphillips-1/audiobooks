@@ -26,6 +26,7 @@ stages:
         workingDirectory: '$(terraformWorkingDirectory)'
         backendServiceArm: 'Azure 1'
         backendAzureRmStorageAccountName: 'satfstateeast'
+        backendAzureRmContainerName: 'tfstate-audiobooks'
 
     - task: TerraformTaskV4@4
       displayName: 'Terraform Validate'
