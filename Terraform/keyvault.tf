@@ -15,8 +15,8 @@ resource "azurerm_key_vault_access_policy" "app_service" {
     object_id    = azurerm_app_service.app.identity[0].principal_id
 
     secret_permissions = [
-        "get",
-        "list"
+        "Get",
+        "List"
     ]
 }
 
