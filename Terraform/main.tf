@@ -1,5 +1,5 @@
 terraform {
-    required_version = ">= 1.1.0"
+    required_version = "~> 1.13.0"
     backend "azurerm" {
         storage_account_name  = "satfstateeast"
         container_name        = "tfstate-audiobooks"
