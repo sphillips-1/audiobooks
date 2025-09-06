@@ -28,7 +28,7 @@ resource "azurerm_container_group" "aci" {
         password = azurerm_container_registry.acr.admin_password
     }
 
-    ip_address_type = "public"
+    ip_address_type = "Public"
     dns_name_label  = "audiobooks-aci-${random_id.dns.hex}"
 }
 
