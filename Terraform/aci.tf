@@ -11,9 +11,6 @@ resource "azurerm_container_group" "aci" {
         memory = "1.5"
 
         environment_variables = {
-            DOCKER_REGISTRY_SERVER_URL      = "https://${azurerm_container_registry.acr.login_server}"
-            DOCKER_REGISTRY_SERVER_USERNAME = "@Microsoft.KeyVault(SecretUri=${azurerm_key_vault_secret.acr_username.id})"
-            DOCKER_REGISTRY_SERVER_PASSWORD = "@Microsoft.KeyVault(SecretUri=${azurerm_key_vault_secret.acr_password.id})"
         }
 
         ports {
