@@ -10,12 +10,12 @@ resource "azurerm_storage_account" "main" {
 
 resource "azurerm_storage_share" "media" {
   name                 = "abs-media"
-  storage_account_name = azurerm_storage_account.main.name
+  storage_account_id = azurerm_storage_account.main.id
   quota                = 5120 # GB
 }
 
 resource "azurerm_storage_share" "config" {
   name                 = "abs-config"
-  storage_account_name = azurerm_storage_account.main.name
+  storage_account_id = azurerm_storage_account.main.id
   quota                = 100
 }
