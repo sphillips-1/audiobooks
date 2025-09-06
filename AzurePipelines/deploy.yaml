@@ -55,24 +55,3 @@ stages:
         environmentServiceNameAzureRM: 'Azure 1'
         commandOptions: '-auto-approve tfplan'
 
-    - script: |
-        terraform output -raw webapp_name > webapp_name.txt
-      displayName: 'Get Azure Web App Name'
-      workingDirectory: $(terraformWorkingDirectory)
-
-    - task: AzureCLI@2
-      displayName: 'Azure Login'
-      inputs:
-        azureSubscription: 'Azure 1'
-        scriptType: bash
-        scriptLocation: inlineScript
-        inlineScript: echo "Logged in to Azure"
-    - task: AzureContainerInstance@1
-      displayName: 'Deploy container to Azure Container Instance'
-      inputs:
-        azureSubscription: 'Azure 1'
-        resourceGroup: 'rg-Terraform-Requirements'
-        containerName: 'audiobookshelf-aci'
-        imageName: 'ghcr.io/advplyr/audiobookshelf:latest'
-        ports: '80'
-        dnsNameLabel: 'audiobookshelf-aci-$(Build.BuildId)'

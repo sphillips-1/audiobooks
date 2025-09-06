@@ -6,7 +6,7 @@ resource "azurerm_container_group" "aci" {
 
     container {
         name   = "audiobooks"
-        image  = "${azurerm_container_registry.acr.login_server}/your-image:latest"
+        image  = "ghcr.io/advplyr/audiobookshelf:latest"
         cpu    = "1.0"
         memory = "1.5"
 
