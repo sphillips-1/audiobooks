@@ -1,4 +1,5 @@
 terraform {
+    required_version = ">= 1.1.0"
     backend "azurerm" {
         storage_account_name  = "satfstateeast"
         container_name        = "tfstate-audiobooks"
@@ -12,11 +13,15 @@ terraform {
             version = "~> 3.0"
         }
     }
-    required_version = ">= 1.1.0"
+
 }
 
 provider "azurerm" {
     features {}
+}
+
+resource "random_id" "dns" {
+    byte_length = 4
 }
 
 resource "azurerm_resource_group" "rg" {
