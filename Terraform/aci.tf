@@ -4,7 +4,7 @@ resource "azurerm_container_group" "aci" {
     resource_group_name = azurerm_resource_group.rg.name
     os_type             = "Linux"
     ip_address_type = "Public"
-    dns_name_label  = "audiobooks-aci-${random_id.dns.hex}"
+    dns_name_label  = "audiobooks-sean"
 
     container {
         name   = "audiobooks"
