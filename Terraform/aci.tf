@@ -9,8 +9,8 @@ resource "azurerm_container_group" "aci" {
     container {
         name   = "audiobooks"
         image  = "ghcr.io/advplyr/audiobookshelf:latest"
-        cpu    = "0.5"
-        memory = "1.0"
+        cpu    = "0.25"
+        memory = "0.5"
         environment_variables = {}
 
         ports {
