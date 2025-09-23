@@ -63,7 +63,7 @@ resource "azuread_application" "abs" {
 # 2️⃣ Service Principal
 # -------------------------
 resource "azuread_service_principal" "abs" {
-  client_id = azuread_application.abs.application_id
+  client_id = azuread_application.abs.client_id
 }
 
 # -------------------------
@@ -90,7 +90,7 @@ resource "azuread_application_optional_claims" "abs" {
 # -------------------------
 output "abs_client_id" {
   description = "Azure AD Client ID for Audiobookshelf"
-  value       = azuread_application.abs.application_id
+  value       = azuread_application.abs.client_id
 }
 
 output "abs_client_secret" {
