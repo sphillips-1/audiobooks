@@ -43,10 +43,10 @@ resource "azuread_application" "abs" {
   # ✅ OIDC web app configuration with both web and mobile redirect URIs
   web {
     redirect_uris = [
-      azurerm_container_group.aci.fqdn + "/auth/openid/callback", # Replace with your ABS URL
+      join(azurerm_container_group.aci.fqdn,"/auth/openid/callback"), # Replace with your ABS URL
       "audiobookshelf://auth"                        # Mobile app redirect
     ]
-    logout_url = azurerm_container_group.aci.fqdn + "/logout"
+    logout_url = join(azurerm_container_group.aci.fqdn,"/logout")
   }
 
   # Optional: Request basic Microsoft Graph permissions
