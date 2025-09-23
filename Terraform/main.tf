@@ -63,15 +63,15 @@ resource "azuread_application" "abs" {
 # 2️⃣ Service Principal
 # -------------------------
 resource "azuread_service_principal" "abs" {
-  application_id = azuread_application.abs.application_id
+  client_id = azuread_application.abs.application_id
 }
 
 # -------------------------
 # 3️⃣ Client Secret
 # -------------------------
 resource "azuread_application_password" "abs_secret" {
-  application_object_id = azuread_application.abs.object_id
-  display_name          = "ABS Terraform Secret"
+  application_id = azuread_application.abs.id
+  display_name   = "ABS Terraform Secret"
 }
 
 # -------------------------
