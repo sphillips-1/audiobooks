@@ -9,8 +9,8 @@ resource "azuread_application" "abs" {
   # ✅ OIDC web app configuration with both web and mobile redirect URIs
   web {
     redirect_uris = [
-      "https://${azurerm_container_group.aci.fqdn}/auth/openid/callback",
-      "https://${azurerm_container_group.aci.fqdn}/",
+      "https://audiobooks-aci.eastus.azurecontainer.io/auth/openid/callback",
+      "https://audiobooks-aci.eastus.azurecontainer.io/",
       "audiobookshelf://auth"
     ]
     logout_url = "https://${azurerm_container_group.aci.fqdn}/logout"
