@@ -1,3 +1,5 @@
+
+
 resource "azurerm_container_group" "aci" {
     name                = "audiobooks-aci"
     location            = azurerm_resource_group.rg.location
@@ -11,7 +13,12 @@ resource "azurerm_container_group" "aci" {
         image  = "ghcr.io/advplyr/audiobookshelf:latest"
         cpu    = "0.25"
         memory = "0.5"
-        environment_variables = {}
+        environment_variables = {
+            OIDC_CLIENT_ID     = azuread_application.abs.client_id
+            OIDC_CLIENT_SECRET = azuread_application_password.abs_secret.value
+            OIDC_ISSUER        = "https://login.microsoftonline.com/${data.azurerm_client_config.current.tenant_id}/v2.0"
+            OIDC_REDIRECT_URI  = "https://audiobooks-aci.eastus.azurecontainer.io/auth/openid/callback"
+        }
 
         ports {
             port     = 80
