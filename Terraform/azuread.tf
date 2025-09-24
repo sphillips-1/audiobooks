@@ -1,4 +1,23 @@
 # -------------------------
+# 4️⃣ Outputs for ABS OIDC automation
+# -------------------------
+output "abs_client_id" {
+  value = azuread_application.abs.client_id
+}
+
+output "abs_tenant_id" {
+  value = data.azurerm_client_config.current.tenant_id
+}
+
+output "abs_client_secret" {
+  value = azuread_application_password.abs_secret.value
+  sensitive = true
+}
+
+output "abs_redirect_uri" {
+  value = "https://audiobooks-aci.eastus.azurecontainer.io/auth/openid/callback"
+}
+# -------------------------
 # 1️⃣ Audiobookshelf App Registration
 # -------------------------
 resource "azuread_application" "abs" {
