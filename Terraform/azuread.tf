@@ -9,7 +9,7 @@ resource "azuread_application" "abs" {
   # ✅ OIDC web app configuration with both web and mobile redirect URIs
   web {
     redirect_uris = [
-      "https://audiobooks-aci.eastus.azurecontainer.io/",
+      "https://localhost/",
       "https://audiobooks-aci.eastus.azurecontainer.io/auth/openid/callback",
       "audiobookshelf://auth"
     ]
