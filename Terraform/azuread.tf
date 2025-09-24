@@ -10,8 +10,8 @@ resource "azuread_application" "abs" {
   web {
     redirect_uris = [
       "https://localhost/",
-      "https://audiobooks-aci.eastus.azurecontainer.io/auth/openid/callback",
-      "audiobookshelf://auth"
+      "https://audiobooks-aci.eastus.azurecontainer.io/",
+      "https://audiobooks-aci.eastus.azurecontainer.io/auth/openid/callback"
     ]
     logout_url = "https://${azurerm_container_group.aci.fqdn}/logout"
   }
