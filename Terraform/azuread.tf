@@ -9,7 +9,7 @@ resource "azuread_application" "abs" {
   # ✅ OIDC web app configuration with both web and mobile redirect URIs
   web {
     redirect_uris = [
-      join("", [azurerm_container_group.aci.fqdn,"/auth/openid/callback"]), # Replace with your ABS URL
+      "https://${azurerm_container_group.aci.fqdn}/auth/openid/callback", # Replace with your ABS URL
       "audiobookshelf://auth"                        # Mobile app redirect
     ]
     logout_url = join("", [azurerm_container_group.aci.fqdn,"/logout"])
