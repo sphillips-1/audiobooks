@@ -10,10 +10,9 @@ resource "azuread_application" "abs" {
   web {
     redirect_uris = [
       "https://localhost/",
-      "https://audiobooks-aci.eastus.azurecontainer.io/",
-      "https://audiobooks-aci.eastus.azurecontainer.io/auth/openid/callback"
+      "https://localhost/auth/openid/callback"
     ]
-    logout_url = "https://${azurerm_container_group.aci.fqdn}/logout"
+    logout_url = "https://localhost/logout"
   }
 
   # Optional: Request basic Microsoft Graph permissions
