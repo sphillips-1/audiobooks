@@ -10,6 +10,7 @@ resource "azuread_application" "abs" {
   web {
     redirect_uris = [
       "https://${azurerm_container_group.aci.fqdn}/auth/openid/callback",
+      "https://${azurerm_container_group.aci.fqdn}/",
       "audiobookshelf://auth"
     ]
     logout_url = "https://${azurerm_container_group.aci.fqdn}/logout"
