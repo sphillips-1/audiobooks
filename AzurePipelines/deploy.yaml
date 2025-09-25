@@ -58,12 +58,10 @@ stages:
         environmentServiceNameAzureRM: 'Azure 1'
         commandOptions: '-auto-approve tfplan'
 
-    - task: AzureCLI@2
-      inputs:
-        azureSubscription: 'Azure 1'
-        scriptType: 'ps'
-        scriptLocation: 'inlineScript'
-        inlineScript: |
-          $appId = azuread_application.abs.client_id
-          $fqdn = azurerm_container_group.aci.fqdn
-          az ad app update --id $appId --web-redirect-uris "https://$fqdn/" "https://$fqdn/auth/openid/callback"
+    - script: |
+        #!/bin/bash
+        APP_ID=$(terraform output -raw abs_client_id)
+        ACI_FQDN=$(terraform output -raw abs_redirect_uri | sed 's|https://||;s|/auth/openid/callback||')
+        az ad app update --id "$APP_ID" \
+          --web-redirect-uris "https://$ACI_FQDN/" "https://$ACI_FQDN/auth/openid/callback"
+      displayName: 'Update Azure AD App Registration Redirect URIs'
