@@ -1,3 +1,4 @@
+
 trigger:
   branches:
     include:
@@ -57,6 +58,18 @@ stages:
         workingDirectory: '$(terraformWorkingDirectory)'
         environmentServiceNameAzureRM: 'Azure 1'
         commandOptions: '-auto-approve tfplan'
+
+    - script: |
+        #!/bin/bash
+        echo "Terraform output abs_client_id:"
+        terraform output -raw abs_client_id
+        echo "Terraform output abs_redirect_uri:"
+        terraform output -raw abs_redirect_uri
+        APP_ID=$(terraform output -raw abs_client_id)
+        ACI_FQDN=$(terraform output -raw abs_redirect_uri | sed 's|https://||;s|/auth/openid/callback||')
+        echo "APP_ID: $APP_ID"
+        echo "ACI_FQDN: $ACI_FQDN"
+      displayName: 'Print Terraform Outputs for Azure AD Update'
 
     - task: AzureCLI@2
       displayName: 'Update Azure AD App Registration Redirect URIs'
