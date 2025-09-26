@@ -19,7 +19,7 @@ resource "azuread_application" "abs" {
   required_resource_access {
     resource_app_id = "00000003-0000-0000-c000-000000000000" # Microsoft Graph
     resource_access {
-      id   = "37f7f235-527c-4136-accd-4a02d197296e" # User.Read scope
+      id   = "37f7f235-527c-4136-accd-4a02d197296e" # User.Read
       type = "Scope"
     }
   }
