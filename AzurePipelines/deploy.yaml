@@ -83,4 +83,4 @@ stages:
             exit 1
           fi
           az ad app update --id "$APP_ID" \
-            --web-redirect-uris "https://$ACI_FQDN/" "https://$ACI_FQDN/auth/openid/callback"
+            --web-redirect-uris "http://$ACI_FQDN/audiobookshelf/auth/openid/callback" "http://$ACI_FQDN/"
