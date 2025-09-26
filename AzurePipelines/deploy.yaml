@@ -73,7 +73,14 @@ stages:
         scriptType: 'bash'
         scriptLocation: 'inlineScript'
         inlineScript: |
+          cd $(terraformWorkingDirectory)
           APP_ID=$(terraform output -raw abs_client_id)
           ACI_FQDN=$(terraform output -raw abs_redirect_uri | sed 's|https://||;s|/auth/openid/callback||')
+          echo "APP_ID: $APP_ID"
+          echo "ACI_FQDN: $ACI_FQDN"
+          if [ -z "$APP_ID" ] || [ -z "$ACI_FQDN" ]; then
+            echo "ERROR: APP_ID or ACI_FQDN is empty."
+            exit 1
+          fi
           az ad app update --id "$APP_ID" \
             --web-redirect-uris "https://$ACI_FQDN/" "https://$ACI_FQDN/auth/openid/callback"
