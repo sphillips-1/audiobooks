@@ -8,7 +8,7 @@ resource "azurerm_container_group" "aci" {
 
   container {
     name   = "nginx"
-    image  = "mcr.microsoft.com/nginx/nginx:latest"
+    image  = "nginx:latest"
     cpu    = "0.1"
     memory = "0.2"
     ports {
