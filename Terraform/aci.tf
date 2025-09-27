@@ -4,7 +4,7 @@ resource "azurerm_container_group" "aci" {
   resource_group_name = azurerm_resource_group.rg.name
   os_type             = "Linux"
   ip_address_type     = "Public"
-  dns_name_label      = "audiobookshelf-ssl"
+  dns_name_label      = "audiobookshelf-sean"
 
   container {
     name   = "nginx"
@@ -44,10 +44,6 @@ resource "azurerm_container_group" "aci" {
     }
   }
 
-
-
-  # Volumes are now defined inside each container block below
-  tags = { app = "audiobookshelf" }
 }
 
 # Place your SSL cert and nginx.conf in the Azure File Share.
