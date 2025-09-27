@@ -42,6 +42,11 @@ resource "azurerm_container_group" "aci" {
       port     = 80
       protocol = "TCP"
     }
+    environment_variables = {
+      CONFIG_PATH = "/config"
+      # METADATA_PATH = "/var/lib/audiobookshelf/metadata"
+      # BACKUP_PATH = "/var/lib/audiobookshelf/backup"
+    }
   }
 
 }
