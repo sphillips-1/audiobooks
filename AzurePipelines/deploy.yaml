@@ -17,10 +17,7 @@ stages:
       REPO_URL: 'https://github.com/advplyr/audiobookshelf.git'
 
     steps:
-    - task: Checkout@2
-      inputs:
-        repository: $(REPO_URL)
-        clean: true
+    - checkout: https://github.com/advplyr/audiobookshelf.git
 
     - template: templates/terraform.yaml
       parameters:
