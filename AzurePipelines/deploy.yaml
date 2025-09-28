@@ -7,7 +7,7 @@ pool:
   vmImage: 'ubuntu-latest'
 
 variables:
-  terraformWorkingDirectory: './Terraform'
+  terraformWorkingDirectory: './Terraform/main'
 
 stages:
 - stage: 
@@ -16,47 +16,10 @@ stages:
     steps:
     - checkout: self
 
-    - task: TerraformInstaller@1
-      displayName: 'Install Terraform'
-      inputs:
-        terraformVersion: '1.13.1'
-
-    - task: TerraformTaskV4@4
-      displayName: 'Terraform Init'
-      inputs:
-        provider: 'azurerm'
-        command: 'init'
-        workingDirectory: '$(terraformWorkingDirectory)'
-        backendServiceArm: 'Azure 1'
-        backendAzureRmStorageAccountName: 'satfstateeast'
-        backendAzureRmContainerName: 'tfstate-audiobooks'
+    - template: AzurePipelines/templates/terraform.ymal
+      parameters:
+        terraformWorkingDirectory: $(terraformWorkingDirectory)
         backendAzureRmKey: 'audiobooks.tfstate'
-        backendAzureRmResourceGroupName: 'rg-Terraform-Requirements'
-
-    - task: TerraformTaskV4@4
-      displayName: 'Terraform Validate'
-      inputs:
-        provider: 'azurerm'
-        command: 'validate'
-        workingDirectory: '$(terraformWorkingDirectory)'
-
-    - task: TerraformTaskV4@4
-      displayName: 'Terraform Plan'
-      inputs:
-        provider: 'azurerm'
-        command: 'plan'
-        workingDirectory: '$(terraformWorkingDirectory)'
-        environmentServiceNameAzureRM: 'Azure 1'
-        commandOptions: '-out=tfplan'
-
-    - task: TerraformTaskV4@4
-      displayName: 'Terraform Apply'
-      inputs:
-        provider: 'azurerm'
-        command: 'apply'
-        workingDirectory: '$(terraformWorkingDirectory)'
-        environmentServiceNameAzureRM: 'Azure 1'
-        commandOptions: '-auto-approve tfplan'
 
     - script: |
         cd $(terraformWorkingDirectory)

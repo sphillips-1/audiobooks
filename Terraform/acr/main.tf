@@ -3,7 +3,7 @@ terraform {
     backend "azurerm" {
         storage_account_name  = "satfstateeast"
         container_name        = "tfstate-audiobooks"
-        key                   = "audiobooks.tfstate"
+        key                   = "audiobooks-utilities.tfstate"
         resource_group_name   = "rg-Terraform-Requirements"
     }
 
@@ -25,8 +25,8 @@ provider "azuread" {
   # AZURE_CLIENT_ID, AZURE_CLIENT_SECRET, AZURE_TENANT_ID
 }
 
-resource "azurerm_resource_group" "rg" {
-    name     = "rg-audiobooks-app"
+resource "azurerm_resource_group" "main" {
+    name     = "rg-audiobookshelf-utilities"
     location = "East US"
 }
 

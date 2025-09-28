@@ -1,0 +1,52 @@
+parameters:
+  - name: terraformWorkingDirectory
+    type: string
+    default: ''
+
+  - name: backendAzureRmKey
+    type: string
+    default: ''
+
+
+steps:
+- task: TerraformInstaller@1
+  displayName: 'Install Terraform'
+  inputs:
+    terraformVersion: '1.13.1'
+
+- task: TerraformTaskV4@4
+  displayName: 'Terraform Init'
+  inputs:
+    provider: 'azurerm'
+    command: 'init'
+    workingDirectory: ${{ parameters.terraformWorkingDirectory }}
+    backendServiceArm: 'Azure 1'
+    backendAzureRmStorageAccountName: 'satfstateeast'
+    backendAzureRmContainerName: 'tfstate-audiobooks'
+    backendAzureRmKey: ${{ parameters.backendAzureRmKey }}    
+    backendAzureRmResourceGroupName: 'rg-Terraform-Requirements'
+
+- task: TerraformTaskV4@4
+  displayName: 'Terraform Validate'
+  inputs:
+    provider: 'azurerm'
+    command: 'validate'
+    workingDirectory: ${{ parameters.terraformWorkingDirectory }}
+
+- task: TerraformTaskV4@4
+  displayName: 'Terraform Plan'
+  inputs:
+    provider: 'azurerm'
+    command: 'plan'
+    workingDirectory: ${{ parameters.terraformWorkingDirectory }}
+    environmentServiceNameAzureRM: 'Azure 1'
+    commandOptions: '-out=tfplan'
+
+- task: TerraformTaskV4@4
+  displayName: 'Terraform Apply'
+  inputs:
+    provider: 'azurerm'
+    command: 'apply'
+    workingDirectory: ${{ parameters.terraformWorkingDirectory }}
+    environmentServiceNameAzureRM: 'Azure 1'
+    commandOptions: '-auto-approve tfplan'

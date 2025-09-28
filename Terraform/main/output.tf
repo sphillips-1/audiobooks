@@ -3,12 +3,12 @@
 # -------------------------
 output "abs_client_id" {
   description = "Azure AD Client ID for Audiobookshelf"
-  value       = azuread_application.abs.client_id
+  value       = azuread_application.main.client_id
 }
 
 output "abs_client_secret" {
   description = "Azure AD Client Secret for Audiobookshelf"
-  value       = azuread_application_password.abs_secret.value
+  value       = azuread_application_password.main.value
   sensitive   = true
 }
 
@@ -19,5 +19,5 @@ output "abs_tenant_id" {
 
 output "abs_redirect_uri" {
   description = "Redirect URI for Audiobookshelf (used in OIDC settings)"
-  value       = "https://${azurerm_container_group.aci.dns_name_label}.${azurerm_container_group.aci.location}.azurecontainer.io/auth/openid/callback"
+  value       = "https://${azurerm_container_group.main.dns_name_label}.${azurerm_container_group.main.location}.azurecontainer.io/auth/openid/callback"
 }

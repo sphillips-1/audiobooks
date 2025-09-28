@@ -1,7 +1,7 @@
 # -------------------------
 # 1️⃣ Audiobookshelf App Registration
 # -------------------------
-resource "azuread_application" "abs" {
+resource "azuread_application" "main" {
   display_name     = "Audiobookshelf OIDC"
   # ✅ Allow both organizational accounts and personal Microsoft accounts
   sign_in_audience = "AzureADMultipleOrgs"
@@ -28,23 +28,23 @@ resource "azuread_application" "abs" {
 # -------------------------
 # 2️⃣ Service Principal
 # -------------------------
-resource "azuread_service_principal" "abs" {
-  client_id = azuread_application.abs.client_id
+resource "azuread_service_principal" "main" {
+  client_id = azuread_application.main.client_id
 }
 
 # -------------------------
 # 3️⃣ Client Secret
 # -------------------------
-resource "azuread_application_password" "abs_secret" {
-  application_id = azuread_application.abs.id
+resource "azuread_application_password" "main" {
+  application_id = azuread_application.main.id
   display_name   = "ABS Terraform Secret"
 }
 
 # -------------------------
 # 4️⃣ Optional Claims (include email claim in ID token)
 # -------------------------
-resource "azuread_application_optional_claims" "abs" {
-  application_id = azuread_application.abs.id
+resource "azuread_application_optional_claims" "main" {
+  application_id = azuread_application.main.id
 
   id_token {
     name = "email"

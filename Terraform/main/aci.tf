@@ -1,7 +1,7 @@
-resource "azurerm_container_group" "aci" {
-  name                = "audiobookshelf-aci"
-  location            = azurerm_resource_group.rg.location
-  resource_group_name = azurerm_resource_group.rg.name
+resource "azurerm_container_group" "main" {
+  name                = "aci-audiobookshelf"
+  location            = azurerm_resource_group.main.location
+  resource_group_name = azurerm_resource_group.main.name
   os_type             = "Linux"
   ip_address_type     = "Public"
   dns_name_label      = "audiobookshelf-sean"
