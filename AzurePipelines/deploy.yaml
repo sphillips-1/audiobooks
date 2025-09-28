@@ -22,7 +22,7 @@ stages:
         repository: $(REPO_URL)
         clean: true
 
-    - template: AzurePipelines/templates/terraform.ymal
+    - template: templates/terraform.yaml
       parameters:
         terraformWorkingDirectory: $(terraformWorkingDirectory)
         backendAzureRmKey: 'acr.tfstate'
@@ -70,7 +70,7 @@ stages:
     steps:
     - checkout: self
 
-    - template: AzurePipelines/templates/terraform.ymal
+    - template: templates/terraform.yaml
       parameters:
         terraformWorkingDirectory: $(terraformWorkingDirectory)
         backendAzureRmKey: 'audiobooks.tfstate'
