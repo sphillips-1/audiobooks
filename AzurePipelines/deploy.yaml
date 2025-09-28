@@ -6,6 +6,13 @@ trigger:
 pool:
   vmImage: 'ubuntu-latest'
 
+resources:
+  repositories:
+    - repository: audiobookshelf
+      type: git
+      name: advplyr/audiobookshelf
+      ref: main
+
 stages:
 - stage: Build
   # condition: eq(variables['Build.Reason'], 'Manual')
@@ -14,10 +21,9 @@ stages:
     variables:
       terraformWorkingDirectory:  './Terraform/main'
       IMAGE_NAME: 'audiobookshelf'
-      REPO_URL: 'https://github.com/advplyr/audiobookshelf.git'
 
     steps:
-    - checkout: https://github.com/advplyr/audiobookshelf.git
+    - checkout: audiobookshelf
 
     - template: templates/terraform.yaml
       parameters:
