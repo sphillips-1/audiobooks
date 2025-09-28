@@ -7,7 +7,6 @@ parameters:
     type: string
     default: ''
 
-
 steps:
 - task: TerraformInstaller@1
   displayName: 'Install Terraform'
