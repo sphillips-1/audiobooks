@@ -43,7 +43,7 @@ resource "azurerm_container_group" "aci" {
       protocol = "TCP"
     }
     environment_variables = {
-      CONFIG_PATH = "/config"
+      CONFIG_PATH = "/abs-config"
       # METADATA_PATH = "/var/lib/audiobookshelf/metadata"
       # BACKUP_PATH = "/var/lib/audiobookshelf/backup"
     }
