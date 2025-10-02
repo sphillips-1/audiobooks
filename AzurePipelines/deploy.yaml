@@ -6,54 +6,7 @@ trigger:
 pool:
   vmImage: 'ubuntu-latest'
 
-resources:
-  repositories:
-    - repository: audiobookshelf
-      type: git
-      name: advplyr/audiobookshelf
-      ref: main
-
 stages:
-# - stage: Build
-#   # condition: eq(variables['Build.Reason'], 'Manual')
-#   jobs:
-#   - job: Docker
-#     variables:
-#       terraformWorkingDirectory:  './Terraform/main'
-#       IMAGE_NAME: 'audiobookshelf'
-
-#     steps:
-#     - checkout: audiobookshelf
-
-#     - template: templates/terraform.yaml
-#       parameters:
-#         terraformWorkingDirectory: $(terraformWorkingDirectory)
-#         backendAzureRmKey: 'acr.tfstate'
-
-    # - task: Docker@2
-    #   displayName: 'Build Docker image'
-    #   inputs:
-    #     command: build
-    #     repository: $(acr_name).azurecr.io/$(IMAGE_NAME)
-    #     dockerfile: '**/Dockerfile'
-    #     tags: |
-    #       $(Build.BuildId)
-
-    # - task: Docker@2
-    #   displayName: 'Login to ACR'
-    #   inputs:
-    #     command: login
-    #     containerRegistry: '$(acr_name)'
-
-    # - task: Docker@2
-    #   displayName: 'Push image to ACR'
-    #   inputs:
-    #     command: push
-    #     repository: $(acr_name).azurecr.io/$(IMAGE_NAME)
-    #     tags: |
-    #       $(Build.BuildId)
-
-
 - stage: Deploy
   jobs:
   - job: Terraform
